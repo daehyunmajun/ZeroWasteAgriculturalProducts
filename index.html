@@ -3,121 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>어글리 그리너리 (Ugly Greenery) - 못난이 농산물 마켓</title>
+    <title>어글리 그리너리 - 리얼타임 마켓</title>
     <style>
-        /* 기본 스타일 초기화 */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Malgun Gothic', sans-serif; }
         body { background-color: #f9f9f9; color: #333; }
-        a { text-decoration: none; color: inherit; }
-
-        /* 헤더 스타일 */
         header { background-color: #fff; border-bottom: 1px solid #eee; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .logo { font-size: 24px; font-weight: bold; color: #2e7d32; }
         nav a { margin-left: 20px; font-weight: 600; color: #555; }
-        nav a:hover { color: #2e7d32; }
-
-        /* 히어로 배너 스타일 */
         .hero { background-color: #e8f5e9; padding: 60px 5%; text-align: center; }
         .hero h1 { font-size: 32px; color: #1b5e20; margin-bottom: 15px; }
         .hero p { font-size: 18px; color: #4e342e; margin-bottom: 20px; }
+        
+        /* 실시간 데이터가 들어갈 뱃지 */
         .badge-info { display: inline-block; background-color: #fff; padding: 10px 20px; border-radius: 20px; font-weight: bold; color: #2e7d32; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-
-        /* 상품 섹션 스타일 */
+        
         .products-container { padding: 50px 5%; }
         .section-title { font-size: 24px; margin-bottom: 30px; color: #333; border-left: 5px solid #2e7d32; padding-left: 10px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
         
-        /* 상품 카드 스타일 */
-        .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .product-card:hover { transform: translateY(-5px); }
+        .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .product-img { width: 100%; height: 200px; background-color: #ddd; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; position: relative; }
         .discount-badge { position: absolute; top: 15px; left: 15px; background-color: #d32f2f; color: #fff; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; }
-        
         .product-info { padding: 20px; }
         .product-tag { color: #e65100; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
         .product-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
         .product-price { display: flex; align-items: center; justify-content: space-between; }
         .origin-price { text-decoration: line-through; color: #999; font-size: 14px; }
         .sale-price { color: #d32f2f; font-weight: bold; font-size: 18px; }
-
-        /* 푸터 스타일 */
         footer { background-color: #333; color: #fff; padding: 40px 5%; text-align: center; font-size: 14px; margin-top: 50px; }
-        footer p { margin-bottom: 10px; color: #bbb; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">🥕 어글리 그리너리</div>
-        <nav>
-            <a href="#">마켓구경</a>
-            <a href="#">농가이야기</a>
-            <a href="#">탄소절감 가계부</a>
-            <a href="#">장바구니</a>
-        </nav>
+        <nav><a href="#">마켓구경</a><a href="#">장바구니</a></nav>
     </header>
 
     <section class="hero">
         <h1>외모는 달라도 맛과 영양은 그대로!</h1>
-        <p>크기가 작아서, 모양이 조금 달라서 버려질 위기였던 농산물을 구해주세요.</p>
-        <div class="badge-info">🌱 오늘 우리가 구출한 농산물: 1,240kg</div>
+        <p>버려질 위기였던 농산물을 구해주세요.</p>
+        <div class="badge-info" id="total-weight">🌱 오늘 우리가 구출한 농산물: 연결 중...</div>
     </section>
 
     <main class="products-container">
         <h2 class="section-title">오늘의 구출 대기 농산물</h2>
-        
-        <div class="product-grid">
-            <article class="product-card">
-                <div class="product-img">
-                    [ 이미지 준비중 ]
-                    <span class="discount-badge">40% OFF</span>
-                </div>
-                <div class="product-info">
-                    <div class="product-tag">한정수량 / 모양이 둥글지 않은</div>
-                    <h3 class="product-name">경북 영주 못난이 사과 3kg</h3>
-                    <div class="product-price">
-                        <span class="origin-price">18,000원</span>
-                        <span class="sale-price">10,800원</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-img">
-                    [ 이미지 준비중 ]
-                    <span class="discount-badge">30% OFF</span>
-                </div>
-                <div class="product-info">
-                    <div class="product-tag">크기 미달 / 맛은 당도 최고</div>
-                    <h3 class="product-name">제주 타이벡 꼬마 감귤 5kg</h3>
-                    <div class="product-price">
-                        <span class="origin-price">15,000원</span>
-                        <span class="sale-price">10,500원</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="product-card">
-                <div class="product-img">
-                    [ 이미지 준비중 ]
-                    <span class="discount-badge">50% OFF</span>
-                </div>
-                <div class="product-info">
-                    <div class="product-tag">다리가 여러 개 부러진</div>
-                    <h3 class="product-name">무안 흙당근 2kg (주스용)</h3>
-                    <div class="product-price">
-                        <span class="origin-price">10,000원</span>
-                        <span class="sale-price">5,000원</span>
-                    </div>
-                </div>
-            </article>
+        <div class="product-grid" id="product-list">
+            <p>상품 로딩 중...</p>
         </div>
     </main>
 
     <footer>
-        <p>어글리 그리너리 | 지구를 살리는 가치 소비 플랫폼</p>
-        <p>© 2026 Ugly Greenery. All SDG 12 Goals Reserverd.</p>
+        <p>© 2026 Ugly Greenery. All Realtime Data Sync Ready.</p>
     </footer>
 
+    <script type="module">
+        // 1. 파이어베이스 공식 CDN에서 필요한 모듈 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 2. 본인의 파이어베이스 프로젝트 설정값으로 대체하세요!
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // 3. 파이어베이스 초기화
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // --- 기능 A: 실시간 구출 무게 연동 ---
+        const weightRef = ref(database, 'totalWeight');
+        // onValue는 DB 데이터가 바뀌면 브라우저 새로고침 없이 '실시간'으로 실행됩니다.
+        onValue(weightRef, (snapshot) => {
+            const data = snapshot.val();
+            document.getElementById('total-weight').innerText = `🌱 오늘 우리가 구출한 농산물: ${data.toLocaleString()}kg`;
+        });
+
+        // --- 기능 B: 상품 리스트 실시간 연동 ---
+        const productsRef = ref(database, 'products');
+        onValue(productsRef, (snapshot) => {
+            const productsData = snapshot.val();
+            const productListContainer = document.getElementById('product-list');
+            
+            // 기존 내용 비우기
+            productListContainer.innerHTML = '';
+
+            // 데이터가 있으면 반복문 돌려 화면에 그리기
+            if (productsData) {
+                Object.keys(productsData).forEach((key) => {
+                    const item = productsData[key];
+                    
+                    // HTML 템플릿 리터럴 생성
+                    const cardHtml = `
+                        <article class="product-card">
+                            <div class="product-img">
+                                [ 이미지 ]
+                                <span class="discount-badge">${item.discount} OFF</span>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-tag">${item.tag}</div>
+                                <h3 class="product-name">${item.name}</h3>
+                                <div class="product-price">
+                                    <span class="origin-price">${item.originPrice.toLocaleString()}원</span>
+                                    <span class="sale-price">${item.salePrice.toLocaleString()}원</span>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                    productListContainer.insertAdjacentHTML('beforeend', cardHtml);
+                });
+            } else {
+                productListContainer.innerHTML = '<p>현재 구출할 상품이 없습니다.</p>';
+            }
+        });
+                const firebaseConfig = {
+    // 1. 프로젝트 설정에서 확인 후 붙여넣기 (아래 2번 설명 참고)
+    apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4", 
+    
+    // 2. 프로젝트 ID 기반 자동 세팅 완료
+    authDomain: "test-51faf.firebaseapp.com",
+    projectId: "test-51faf",
+    storageBucket: "test-51faf.appspot.com",
+    
+    // 3. 데이터베이스 URL (현재 링크 창 상단에 표시된 https://... 주소를 그대로 적으시면 됩니다)
+    // 리전에 따라 .firebaseio.com이거나 .asia-southeast1.firebasedatabase.app 형태일 수 있습니다.
+    databaseURL: "https://test-51faf-default-rtdb.firebaseio.com", 
+    
+    // 4. 프로젝트 설정에서 확인 후 붙여넣기
+    messagingSenderId: "894776918922",
+    appId: "1:894776918922:web:bd0aaf9948207ff1057e73"
+};
+    </script>
 </body>
 </html>
