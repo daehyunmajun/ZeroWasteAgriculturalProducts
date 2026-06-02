@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>어글리 그리너리</title>
 
 <style>
@@ -36,11 +35,28 @@ header{
     color:#2e7d32;
 }
 
-nav a{
-    text-decoration:none;
-    margin-left:20px;
-    color:#444;
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+#userInfo{
     font-weight:bold;
+    color:#2e7d32;
+}
+
+.btn{
+    border:none;
+    background:#2e7d32;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1b5e20;
 }
 
 .hero{
@@ -92,35 +108,17 @@ nav a{
     border-radius:15px;
     overflow:hidden;
     box-shadow:0 4px 15px rgba(0,0,0,0.08);
-    transition:0.3s;
-}
-
-.product-card:hover{
-    transform:translateY(-5px);
 }
 
 .product-img{
     width:100%;
     height:220px;
-    position:relative;
-    overflow:hidden;
 }
 
 .product-img img{
     width:100%;
     height:100%;
     object-fit:cover;
-}
-
-.discount{
-    position:absolute;
-    top:10px;
-    left:10px;
-    background:#d32f2f;
-    color:white;
-    padding:6px 10px;
-    border-radius:8px;
-    font-weight:bold;
 }
 
 .product-info{
@@ -138,10 +136,10 @@ nav a{
     margin:10px 0;
 }
 
-.price{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.discount{
+    color:#d32f2f;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .origin{
@@ -164,63 +162,72 @@ nav a{
     width:100%;
     margin-top:15px;
     border:none;
-    padding:12px;
     background:#2e7d32;
     color:white;
-    border-radius:10px;
-    font-size:16px;
+    padding:12px;
+    border-radius:8px;
     cursor:pointer;
 }
 
-.buy-btn:hover{
-    background:#1b5e20;
-}
-
 footer{
-    margin-top:50px;
     background:#333;
     color:white;
     text-align:center;
     padding:30px;
+    margin-top:50px;
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="logo">🥕 어글리 그리너리</div>
 
-    <nav>
-        <a href="#">마켓</a>
-        <a href="#">장바구니</a>
-    </nav>
+<div class="logo">🥕 어글리 그리너리</div>
+
+<div class="header-right">
+
+<div id="userInfo"></div>
+
+<button id="loginBtn" class="btn">
+Google 로그인
+</button>
+
+<button id="logoutBtn" class="btn" style="display:none;">
+로그아웃
+</button>
+
+</div>
+
 </header>
 
 <section class="hero">
-    <h1>외모는 달라도 맛과 영양은 그대로!</h1>
 
-    <p>버려질 위기의 농산물을 구해주세요.</p>
+<h1>외모는 달라도 맛과 영양은 그대로!</h1>
 
-    <div class="badge" id="totalWeight">
-        🌱 구출한 농산물 불러오는 중...
-    </div>
+<p>버려질 위기의 농산물을 구해주세요.</p>
 
-    <div class="badge" id="carbonSaved">
-        🌍 탄소 절감량 불러오는 중...
-    </div>
+<div class="badge" id="totalWeight">
+🌱 구출 농산물 불러오는 중...
+</div>
+
 </section>
 
 <section class="section">
-    <h2 class="section-title">오늘의 못난이 농산물</h2>
 
-    <div class="product-grid" id="productList">
-        <p>상품 불러오는 중...</p>
-    </div>
+<h2 class="section-title">
+오늘의 못난이 농산물
+</h2>
+
+<div class="product-grid" id="productList">
+
+<p>상품 불러오는 중...</p>
+
+</div>
+
 </section>
 
 <footer>
-    © 2026 Ugly Greenery
+© 2026 Ugly Greenery
 </footer>
 
 <script type="module">
@@ -228,141 +235,195 @@ footer{
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    onValue
+getDatabase,
+ref,
+onValue
 }
 from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+import {
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+signOut,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4",
+apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4",
 
-    authDomain: "test-51faf.firebaseapp.com",
+authDomain: "test-51faf.firebaseapp.com",
 
-    databaseURL: "https://test-51faf-default-rtdb.firebaseio.com",
+databaseURL: "https://test-51faf-default-rtdb.firebaseio.com",
 
-    projectId: "test-51faf",
+projectId: "test-51faf",
 
-    storageBucket: "test-51faf.appspot.com",
+storageBucket: "test-51faf.firebasestorage.app",
 
-    messagingSenderId: "894776918922",
+messagingSenderId: "894776918922",
 
-    appId: "1:894776918922:web:bd0aaf9948207ff1057e73"
+appId: "1:894776918922:web:bd0aaf9948207ff1057e73"
+
 };
 
 const app = initializeApp(firebaseConfig);
 
 const database = getDatabase(app);
 
+const auth = getAuth(app);
 
-// 구출 무게
+const provider = new GoogleAuthProvider();
+
+document
+.getElementById("loginBtn")
+.addEventListener("click", async () => {
+
+try{
+
+await signInWithPopup(auth,provider);
+
+}catch(error){
+
+console.error(error);
+
+alert("로그인 실패");
+
+}
+
+});
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", async () => {
+
+await signOut(auth);
+
+});
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+document.getElementById("userInfo").innerHTML =
+`👤 ${user.displayName}`;
+
+document.getElementById("loginBtn").style.display =
+"none";
+
+document.getElementById("logoutBtn").style.display =
+"inline-block";
+
+}else{
+
+document.getElementById("userInfo").innerHTML =
+"";
+
+document.getElementById("loginBtn").style.display =
+"inline-block";
+
+document.getElementById("logoutBtn").style.display =
+"none";
+
+}
+
+});
 
 onValue(ref(database,"totalWeight"),(snapshot)=>{
 
-    document.getElementById("totalWeight").innerText =
-    `🌱 오늘 구출한 농산물 : ${snapshot.val().toLocaleString()}kg`;
+const value = snapshot.val() || 0;
+
+document.getElementById("totalWeight").innerText =
+`🌱 오늘 구출한 농산물 : ${value.toLocaleString()}kg`;
 
 });
-
-
-// 탄소 절감량
-
-onValue(ref(database,"carbonSaved"),(snapshot)=>{
-
-    document.getElementById("carbonSaved").innerText =
-    `🌍 절감한 탄소배출량 : ${snapshot.val().toLocaleString()}kg`;
-
-});
-
-
-// 상품 불러오기
 
 onValue(ref(database,"products"),(snapshot)=>{
 
-    const data = snapshot.val();
+const data = snapshot.val();
 
-    const productList = document.getElementById("productList");
+const container =
+document.getElementById("productList");
 
-    productList.innerHTML="";
+container.innerHTML = "";
 
-    if(!data){
+if(!data){
 
-        productList.innerHTML="<p>등록된 상품이 없습니다.</p>";
+container.innerHTML =
+"<p>등록된 상품이 없습니다.</p>";
 
-        return;
-    }
+return;
 
-    Object.keys(data).forEach(key=>{
+}
 
-        const item = data[key];
+Object.keys(data).forEach(key=>{
 
-        productList.innerHTML += `
+const item = data[key];
 
-        <div class="product-card">
+container.innerHTML += `
 
-            <div class="product-img">
+<div class="product-card">
 
-                <img src="${item.image}" alt="${item.name}">
+<div class="product-img">
+<img src="${item.image}" alt="${item.name}">
+</div>
 
-                <div class="discount">${item.discount}</div>
+<div class="product-info">
 
-            </div>
+<div class="tag">${item.tag}</div>
 
-            <div class="product-info">
+<h3 class="name">${item.name}</h3>
 
-                <div class="tag">${item.tag}</div>
+<div class="discount">
+${item.discount} 할인
+</div>
 
-                <div class="name">${item.name}</div>
+<div class="origin">
+${item.originPrice.toLocaleString()}원
+</div>
 
-                <div class="price">
+<div class="sale">
+${item.salePrice.toLocaleString()}원
+</div>
 
-                    <span class="origin">
-                        ${item.originPrice.toLocaleString()}원
-                    </span>
+<div class="stock">
+남은 수량 : ${item.stock}개
+</div>
 
-                    <span class="sale">
-                        ${item.salePrice.toLocaleString()}원
-                    </span>
+<button class="buy-btn"
+onclick="addCart('${item.name}')">
 
-                </div>
+장바구니 담기
 
-                <div class="stock">
-                    남은 수량 : ${item.stock}개
-                </div>
+</button>
 
-                <button class="buy-btn"
-                    onclick="addCart('${item.name}')">
-                    장바구니 담기
-                </button>
+</div>
 
-            </div>
+</div>
 
-        </div>
-
-        `;
-    });
+`;
 
 });
 
+});
 
-// 장바구니
+window.addCart = function(productName){
 
-window.addCart = function(name){
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
 
-    let cart =
-        JSON.parse(localStorage.getItem("cart")) || [];
+cart.push(productName);
 
-    cart.push(name);
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
 
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
+alert(productName + " 장바구니에 담았습니다.");
 
-    alert(name + " 장바구니에 담았습니다.");
-};
+}
 
 </script>
 
