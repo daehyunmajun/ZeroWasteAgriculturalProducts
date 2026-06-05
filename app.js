@@ -142,11 +142,17 @@ aiSearchBtn.addEventListener("click", async () => {
       })
     });
 
-    const data = await response.json();
+    const text = await response.text();
 
-    if (!response.ok) {
-      throw new Error(data.error || "AI 검색 실패");
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error(text);
     }
+        if (!response.ok) {
+          throw new Error(data.error || "AI 검색 실패");
+        }
 
     aiResult.textContent = data.answer;
   } catch (error) {
