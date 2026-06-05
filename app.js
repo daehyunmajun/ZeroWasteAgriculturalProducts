@@ -15,13 +15,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "너의_FIREBASE_API_KEY",
+  apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4",
   authDomain: "test-51faf.firebaseapp.com",
   databaseURL: "https://test-51faf-default-rtdb.firebaseio.com",
   projectId: "test-51faf",
   storageBucket: "test-51faf.firebasestorage.app",
   messagingSenderId: "894776918922",
-  appId: "1:894776918922:web:bd0aaf9948207ff1057e73"
+  appId: "1:894776918922:web:bd0aaf9948207ff1057e73",
+  measurementId: "G-SVXRBY2340"
 };
 
 const app = initializeApp(firebaseConfig);
