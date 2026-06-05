@@ -1,431 +1,49 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>어글리 그리너리</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Malgun Gothic',sans-serif;
-}
-
-body{
-    background:#f5f5f5;
-}
-
-header{
-    background:white;
-    padding:20px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#2e7d32;
-}
-
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-#userInfo{
-    font-weight:bold;
-    color:#2e7d32;
-}
-
-.btn{
-    border:none;
-    background:#2e7d32;
-    color:white;
-    padding:10px 15px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.btn:hover{
-    background:#1b5e20;
-}
-
-.hero{
-    background:#e8f5e9;
-    text-align:center;
-    padding:70px 20px;
-}
-
-.hero h1{
-    font-size:40px;
-    color:#1b5e20;
-    margin-bottom:15px;
-}
-
-.hero p{
-    font-size:18px;
-    margin-bottom:20px;
-}
-
-.badge{
-    display:inline-block;
-    background:white;
-    padding:12px 20px;
-    border-radius:30px;
-    font-weight:bold;
-    color:#2e7d32;
-    margin:10px;
-}
-
-.section{
-    padding:50px 5%;
-}
-
-.section-title{
-    font-size:28px;
-    margin-bottom:30px;
-    border-left:6px solid #2e7d32;
-    padding-left:10px;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-}
-
-.product-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
-}
-
-.product-img{
-    width:100%;
-    height:220px;
-}
-
-.product-img img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.product-info{
-    padding:20px;
-}
-
-.tag{
-    color:#ff6f00;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.name{
-    font-size:20px;
-    margin:10px 0;
-}
-
-.discount{
-    color:#d32f2f;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.origin{
-    text-decoration:line-through;
-    color:#999;
-}
-
-.sale{
-    color:#d32f2f;
-    font-size:20px;
-    font-weight:bold;
-}
-
-.stock{
-    margin-top:10px;
-    color:#666;
-}
-
-.buy-btn{
-    width:100%;
-    margin-top:15px;
-    border:none;
-    background:#2e7d32;
-    color:white;
-    padding:12px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-footer{
-    background:#333;
-    color:white;
-    text-align:center;
-    padding:30px;
-    margin-top:50px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>어글리 그리너리</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
 <header>
-
-<div class="logo">🥕 어글리 그리너리</div>
-
-<div class="header-right">
-
-<div id="userInfo"></div>
-
-<button id="loginBtn" class="btn">
-Google 로그인
-</button>
-
-<button id="logoutBtn" class="btn" style="display:none;">
-로그아웃
-</button>
-
-</div>
-
+  <div class="logo">🥕 어글리 그리너리</div>
+  <div class="header-right">
+    <div id="userInfo"></div>
+    <button id="loginBtn" class="btn">Google 로그인</button>
+    <button id="logoutBtn" class="btn hidden">로그아웃</button>
+  </div>
 </header>
 
 <section class="hero">
-
-<h1>외모는 달라도 맛과 영양은 그대로!</h1>
-
-<p>버려질 위기의 농산물을 구해주세요.</p>
-
-<div class="badge" id="totalWeight">
-🌱 구출 농산물 불러오는 중...
-</div>
-
+  <h1>외모는 달라도 맛과 영양은 그대로!</h1>
+  <p>버려질 위기의 못난이 농산물을 구해주세요.</p>
+  <div class="badge" id="totalWeight">🌱 구출 농산물 불러오는 중...</div>
 </section>
 
 <section class="section">
+  <h2 class="section-title">AI 농산물 검색</h2>
 
-<h2 class="section-title">
-오늘의 못난이 농산물
-</h2>
+  <div class="ai-box">
+    <input id="searchInput" placeholder="예: 감자 있나요? 사과 가격 비교해줘" />
+    <button id="aiSearchBtn" class="btn">AI 검색</button>
+  </div>
 
-<div class="product-grid" id="productList">
+  <div id="aiResult" class="ai-result"></div>
+</section>
 
-<p>상품 불러오는 중...</p>
-
-</div>
-
+<section class="section">
+  <h2 class="section-title">오늘의 못난이 농산물</h2>
+  <div class="product-grid" id="productList">
+    <p>상품 불러오는 중...</p>
+  </div>
 </section>
 
 <footer>
-© 2026 Ugly Greenery
+  © 2026 Ugly Greenery
 </footer>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
-import {
-getDatabase,
-ref,
-onValue
-}
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-signOut,
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4",
-
-authDomain: "test-51faf.firebaseapp.com",
-
-databaseURL: "https://test-51faf-default-rtdb.firebaseio.com",
-
-projectId: "test-51faf",
-
-storageBucket: "test-51faf.firebasestorage.app",
-
-messagingSenderId: "894776918922",
-
-appId: "1:894776918922:web:bd0aaf9948207ff1057e73"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const database = getDatabase(app);
-
-const auth = getAuth(app);
-
-const provider = new GoogleAuthProvider();
-
-document
-.getElementById("loginBtn")
-.addEventListener("click", async () => {
-
-try{
-
-await signInWithPopup(auth,provider);
-
-}catch(error){
-
-console.error(error);
-
-alert("로그인 실패");
-
-}
-
-});
-
-document
-.getElementById("logoutBtn")
-.addEventListener("click", async () => {
-
-await signOut(auth);
-
-});
-
-onAuthStateChanged(auth,(user)=>{
-
-if(user){
-
-document.getElementById("userInfo").innerHTML =
-`👤 ${user.displayName}`;
-
-document.getElementById("loginBtn").style.display =
-"none";
-
-document.getElementById("logoutBtn").style.display =
-"inline-block";
-
-}else{
-
-document.getElementById("userInfo").innerHTML =
-"";
-
-document.getElementById("loginBtn").style.display =
-"inline-block";
-
-document.getElementById("logoutBtn").style.display =
-"none";
-
-}
-
-});
-
-onValue(ref(database,"totalWeight"),(snapshot)=>{
-
-const value = snapshot.val() || 0;
-
-document.getElementById("totalWeight").innerText =
-`🌱 오늘 구출한 농산물 : ${value.toLocaleString()}kg`;
-
-});
-
-onValue(ref(database,"products"),(snapshot)=>{
-
-const data = snapshot.val();
-
-const container =
-document.getElementById("productList");
-
-container.innerHTML = "";
-
-if(!data){
-
-container.innerHTML =
-"<p>등록된 상품이 없습니다.</p>";
-
-return;
-
-}
-
-Object.keys(data).forEach(key=>{
-
-const item = data[key];
-
-container.innerHTML += `
-
-<div class="product-card">
-
-<div class="product-img">
-<img src="${item.image}" alt="${item.name}">
-</div>
-
-<div class="product-info">
-
-<div class="tag">${item.tag}</div>
-
-<h3 class="name">${item.name}</h3>
-
-<div class="discount">
-${item.discount} 할인
-</div>
-
-<div class="origin">
-${item.originPrice.toLocaleString()}원
-</div>
-
-<div class="sale">
-${item.salePrice.toLocaleString()}원
-</div>
-
-<div class="stock">
-남은 수량 : ${item.stock}개
-</div>
-
-<button class="buy-btn"
-onclick="addCart('${item.name}')">
-
-장바구니 담기
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-});
-
-window.addCart = function(productName){
-
-let cart =
-JSON.parse(localStorage.getItem("cart"))
-|| [];
-
-cart.push(productName);
-
-localStorage.setItem(
-"cart",
-JSON.stringify(cart)
-);
-
-alert(productName + " 장바구니에 담았습니다.");
-
-}
-
-</script>
-
+<script type="module" src="app.js"></script>
 </body>
 </html>
