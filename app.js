@@ -62,6 +62,7 @@ onAuthStateChanged(auth, (user) => {
     userInfo.textContent = `👤 ${user.displayName}`;
     loginBtn.classList.add("hidden");
     logoutBtn.classList.remove("hidden");
+    loadCart();
   } else {
     userInfo.textContent = "";
     loginBtn.classList.remove("hidden");
