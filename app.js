@@ -3,7 +3,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import {
   getDatabase,
   ref,
-  onValue
+  onValue,
+  set,
+  get,
+  remove
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 import {
