@@ -203,3 +203,25 @@ aiSearchBtn.addEventListener("click", async () => {
     aiResult.textContent = "AI 검색 중 오류가 발생했습니다.";
   }
 });
+
+function loadCart() {
+
+  const user = auth.currentUser;
+
+  if (!user) return;
+
+  const cartRef =
+    ref(
+      database,
+      `users/${user.uid}/cart`
+    );
+
+  onValue(cartRef,(snapshot)=>{
+
+    const data = snapshot.val();
+
+    console.log("장바구니",data);
+
+  });
+
+}
