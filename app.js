@@ -116,32 +116,41 @@ onValue(ref(database, "products"), (snapshot) => {
   });
 });
 
-function addCart(productName) {
+async function addCart(productName) {
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("로그인 후 이용해주세요.");
+    return;
+  }
 
   const product =
     products.find(
       p => p.name === productName
     );
 
-  if(!product) return;
+  if (!product) return;
 
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart")
-    ) || [];
+  const cartRef = ref(
+    database,
+    `users/${user.uid}/cart/${product.id}`
+  );
 
-  const existing =
-    cart.find(
-      item => item.id === product.id
-    );
+  const snapshot = await get(cartRef);
 
-  if(existing){
+  if (snapshot.exists()) {
 
-    existing.quantity++;
+    const item = snapshot.val();
 
-  }else{
+    await set(cartRef, {
+      ...item,
+      quantity: item.quantity + 1
+    });
 
-    cart.push({
+  } else {
+
+    await set(cartRef, {
       id: product.id,
       name: product.name,
       image: product.image,
@@ -150,11 +159,6 @@ function addCart(productName) {
     });
 
   }
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
 
   alert(`${product.name} 장바구니에 담았습니다.`);
 }
