@@ -114,10 +114,46 @@ onValue(ref(database, "products"), (snapshot) => {
 });
 
 function addCart(productName) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(productName);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${productName} 장바구니에 담았습니다.`);
+
+  const product =
+    products.find(
+      p => p.name === productName
+    );
+
+  if(!product) return;
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("cart")
+    ) || [];
+
+  const existing =
+    cart.find(
+      item => item.id === product.id
+    );
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.salePrice,
+      quantity: 1
+    });
+
+  }
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+  alert(`${product.name} 장바구니에 담았습니다.`);
 }
 
 aiSearchBtn.addEventListener("click", async () => {
