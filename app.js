@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-
+const ttsBtn =
+  document.getElementById("ttsBtn");
 import {
   getDatabase,
   ref,
@@ -224,5 +225,31 @@ function loadCart() {
     console.log("장바구니",data);
 
   });
+ttsBtn.addEventListener("click", () => {
+
+  const text =
+    aiResult.textContent.trim();
+
+  if (!text) {
+
+    alert("먼저 AI 검색을 해주세요.");
+
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance =
+    new SpeechSynthesisUtterance(text);
+
+  utterance.lang = "ko-KR";
+
+  utterance.rate = 1.0;
+
+  utterance.pitch = 1.0;
+
+  speechSynthesis.speak(utterance);
+
+});
 
 }
