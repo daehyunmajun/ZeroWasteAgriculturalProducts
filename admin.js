@@ -9,13 +9,13 @@ import {
 from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "네 설정 그대로",
-  authDomain: "네 설정 그대로",
-  databaseURL: "네 설정 그대로",
-  projectId: "네 설정 그대로",
-  storageBucket: "네 설정 그대로",
-  messagingSenderId: "네 설정 그대로",
-  appId: "네 설정 그대로"
+  apiKey: "AIzaSyDmcwB69JNvEJ1B0QGNB62f6hWKmM_fna4",
+  authDomain: "test-51faf.firebaseapp.com",
+  projectId: "test-51faf",
+  storageBucket: "test-51faf.firebasestorage.app",
+  messagingSenderId: "894776918922",
+  appId: "1:894776918922:web:bd0aaf9948207ff1057e73",
+  measurementId: "G-SVXRBY2340"
 };
 
 const app = initializeApp(firebaseConfig);
